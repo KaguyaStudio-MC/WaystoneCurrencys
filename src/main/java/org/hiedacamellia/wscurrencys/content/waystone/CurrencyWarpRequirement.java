@@ -33,25 +33,28 @@ public class CurrencyWarpRequirement implements WarpRequirement {
 
     @Override
     public boolean canAfford(Player player) {
+        if (player.isCreative()) return true;
         IMoneyHolder handler = MoneyAPI.getApi().GetPlayersMoneyHandler(player);
         return handler.getStoredMoney().containsValue(value) && handler.extractMoney(value, true).isEmpty();
     }
 
     @Override
     public void consume(Player player) {
+        if (player.isCreative()) return;
         IMoneyHolder handler = MoneyAPI.getApi().GetPlayersMoneyHandler(player);
         handler.extractMoney(value, false);
     }
 
     @Override
     public void rollback(Player player) {
+        if (player.isCreative()) return;
         IMoneyHolder handler = MoneyAPI.getApi().GetPlayersMoneyHandler(player);
         handler.insertMoney(value, false);
     }
 
     @Override
     public void appendHoverText(Player player, List<Component> list) {
-        if(value.isFree()||value.isEmpty())return;
+        if (value.isFree()||value.isEmpty())return;
         MutableComponent moneyRequirementText = Component.translatable("gui.wscurrencys.currency.need", value.getString());
         moneyRequirementText.withStyle(canAfford(player) ? ChatFormatting.GREEN : ChatFormatting.RED);
         list.add(moneyRequirementText);
