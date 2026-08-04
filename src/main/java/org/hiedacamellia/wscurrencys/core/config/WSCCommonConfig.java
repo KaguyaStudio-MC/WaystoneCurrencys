@@ -11,6 +11,10 @@ public class WSCCommonConfig
             .comment("Enable currency consumption")
             .define("EnableCurrencyConsumption", true);
 
+    public static final ModConfigSpec.BooleanValue RenderHighestDenominationOnly = BUILDER
+            .comment("Only render the highest denomination coin in the waystone requirement display")
+            .define("RenderHighestDenominationOnly", true);
+
     public static final ModConfigSpec SPEC = BUILDER.build();
 
 }

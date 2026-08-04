@@ -21,7 +21,8 @@ public class WayStoneEventHandler {
 
         if (context.getEntity() instanceof Player) {
             Player player = (Player) context.getEntity();
-            if(!event.getRequirements().canAfford(player)){
+            if (player.isCreative()) return;
+            if (!event.getRequirements().canAfford(player)){
                 event.setCanceled(true);
             }
         }
